@@ -54,7 +54,7 @@
         haskell.callCabal2nixWithOptions "kmonad" (haskellSourceFilter ../.)
           (pkgs.lib.strings.optionalString
             pkgs.stdenv.hostPlatform.isDarwin
-            "--flag=dext")
+            "--flag=kext")
           { }
       ).overrideAttrs (orig: {
         buildInputs = orig.buildInputs ++ [ (fakeGit pkgs) ] ++
@@ -64,8 +64,7 @@
           ]);
       } // (pkgs.lib.optionalAttrs pkgs.stdenv.hostPlatform.isDarwin {
         configureFlags = orig.configureFlags ++ [
-          "--extra-include-dirs=c_src/mac/Karabiner-DriverKit-VirtualHIDDevice/src/Client/vendor/include"
-          "--extra-include-dirs=c_src/mac/Karabiner-DriverKit-VirtualHIDDevice/include/pqrs/karabiner/driverkit"
+          "--extra-include-dirs=c_src/mac/Karabiner-VirtualHIDDevice/dist/include"
         ];
         statSubmodulePhase = ''
           stat c_src/mac/Karabiner-DriverKit-VirtualHIDDevice/include || (
